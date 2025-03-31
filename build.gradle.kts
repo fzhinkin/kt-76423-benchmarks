@@ -51,7 +51,7 @@ benchmark {
         named("main") {
             advanced("jvmForks", 3)
             iterationTime = 1L
-            iterationTimeUnit = "ms"
+            iterationTimeUnit = "sec"
             warmups = 5
             iterations = 5
             outputTimeUnit = "ns"
