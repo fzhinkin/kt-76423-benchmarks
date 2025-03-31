@@ -2,8 +2,8 @@ import kotlinx.benchmark.gradle.JvmBenchmarkTarget
 import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
-    kotlin("multiplatform") version "2.0.20"
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.12"
+    kotlin("multiplatform") version "2.1.20"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.13"
 }
 
 group = "org.example"
@@ -22,14 +22,13 @@ kotlin {
     macosX64()
     linuxX64()
 
-    @OptIn(ExperimentalWasmDsl::class)
     wasmJs { nodejs() }
     js(IR) { nodejs() }
 
     sourceSets {
         commonMain {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.12")
+                implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime:0.4.13")
             }
         }
     }
@@ -51,6 +50,11 @@ benchmark {
     configurations {
         named("main") {
             advanced("jvmForks", 3)
+            iterationTime = 1L
+            iterationTimeUnit = "ms"
+            warmups = 5
+            iterations = 5
+            outputTimeUnit = "ns"
         }
     }
 }
